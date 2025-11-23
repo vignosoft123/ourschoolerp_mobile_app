@@ -1,0 +1,90 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>events</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">events</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content> -->
+
+<div class="mobileScreen">
+  <div class="header">
+    <div class="col-md-12">
+      <div class="logo">
+        <img src="../../assets/images/logo.png" style="width:45px;" (click)="navigateHome()">
+      </div>
+      <div class="loins">
+        <div class="navigation">
+          <div class="user-box">
+            <div class="image-box">
+              <img
+                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxivAs4UknzmDfLBXGMxQkayiZDhR2ftB4jcIV7LEnIEStiUyMygioZnbLXCAND-I_xWQpVp0jv-dv9NVNbuKn4sNpXYtLIJk2-IOdWQNpC2Ldapnljifu0pnQqAWU848Ja4lT9ugQex-nwECEh3a96GXwiRXlnGEE6FFF_tKm66IGe3fzmLaVIoNL/s1600/img_avatar.png"
+                alt="avatar">
+            </div>
+            <p class="username">D Poojitha</p>
+          </div>
+          <div class="menu-toggle"></div>
+          <ul class="menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Notification</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-2">
+    <div class="position-relative mb-2 p-2">
+      <i class="fa fa-arrow-left position-absolute top-50 start-0 translate-middle-y" style="cursor: pointer;"
+        (click)="navigateHome()"></i>
+      <h1 class="text-center m-0" style="font-size: 25px;">Holidays</h1>
+    </div>
+    <!-- <div class="back mb-2 p-2">
+    <i class="fa fa-arrow-left" aria-hidden="true" (click)="navigateHome()"></i>
+  </div>
+  <h1 style="font-size: 28px;padding-bottom:20px;text-align: center;">Events</h1> -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" *ngFor="let holiday of holidays">
+        <div class="card h-100" style="position: relative">
+          <div class="bottom-right">{{holiday.fdate}} to {{holiday.tdate}}</div>
+          <div class="top-right">
+            <div class="tags-list mb-2">
+
+
+            </div>
+          </div>
+          <div class="image-container">
+            <div class="bottom-left">
+              <!-- <div class="thumbnail" style="background-color: #ffa5009e">
+              <div class="thumbnail-date">
+                <span class="thumbnail-date-day">17</span>
+                <span class="thumbnail-date-month">ago</span>
+              </div>
+            </div> -->
+            </div>
+            <img src="{{siteUrl}}uploads/images/{{holiday.photo}}">
+            <div
+              class="image-overlay text-over text-center d-flex justify-content-center align-items-center text-uppercase">
+              <div>
+                {{holiday.title}}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <app-loader *ngIf="isLoading"></app-loader>

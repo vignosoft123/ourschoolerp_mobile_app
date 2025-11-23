@@ -1,0 +1,250 @@
+/* Fee Pay Page Styles */
+.mobileScreen {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    .logo img {
+      width: 45px;
+      height: auto;
+    }
+
+    .loins .navigation .user-box {
+      display: flex;
+      align-items: center;
+
+      .image-box img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      .username {
+        font-weight: 600;
+        font-size: 14px;
+        color: #333;
+      }
+    }
+  }
+
+  /* Breadcrumb */
+  .container {
+    padding: 0 10px;
+
+    h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+    }
+  }
+  .invoice-card {
+  border-left: 4px solid #3880ff;
+  margin: 0px 0px 12px 0px
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+
+  /* Invoice Cards */
+  ion-content {
+    padding: 0;
+
+    .invoice-card {
+      border-left: 4px solid #3880ff;
+      margin: 0 0 12px 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+      ion-card-content {
+        padding: 12px;
+
+        strong {
+          font-size: 16px;
+          color: #222;
+        }
+
+        small {
+          font-size: 12px;
+          color: #666;
+        }
+
+        /* Info rows properly spaced */
+        .info-row {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          margin: 6px 0;
+          font-size: 13px;
+          color: #444;
+
+          span {
+            flex: 1 1 45%;
+            text-align: center;
+            min-width: 80px;
+            margin-bottom: 4px;
+          }
+        }
+
+        ion-badge {
+          font-size: 12px;
+          padding: 3px 6px;
+          border-radius: 6px;
+        }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 10px;
+          font-size: 13px;
+
+          th, td {
+            border: 1px solid #E2E7EB;
+            padding: 6px 8px;
+            text-align: center;
+            font-size: 12px;
+          }
+
+          th {
+            background-color: #f1f1f1;
+            font-weight: 600;
+            color: #1A2229;
+          }
+
+          td {
+            color: #707070;
+          }
+        }
+
+        ion-button {
+          margin-top: 10px;
+        }
+      }
+    }
+
+    /* Full-page invoice detail */
+    .invoice-detail {
+      width: 100%;
+      background: #fff;
+      border: 1px solid #f4f4f4;
+      border-radius: 10px;
+      margin: 10px 0;
+
+      ion-card-header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 12px;
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 10px 10px 0 0;
+
+        h2 {
+          font-size: 16px;
+          color: #fff;
+          margin-left: 12px;
+        }
+
+        ion-button {
+          color: #fff;
+        }
+      }
+
+      ion-card-content {
+        padding: 12px;
+
+        p {
+          margin: 4px 0;
+          font-size: 13px;
+          color: #333;
+        }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 10px;
+
+          th, td {
+            border: 1px solid #ddd;
+            padding: 6px 8px;
+            text-align: center;
+            font-size: 12px;
+          }
+
+          th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+          }
+
+          td {
+            color: #333;
+          }
+        }
+      }
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    ion-content .invoice-card ion-card-content .info-row,
+    ion-content .invoice-detail ion-card-content .info-row {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      span {
+        flex: 1 1 45%;
+        text-align: center;
+        margin-bottom: 4px;
+      }
+    }
+
+    table th, table td {
+      font-size: 11px;
+      padding: 4px 6px;
+    }
+  }
+}
+
+
+.invoice-detail-card {
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+
+  ion-card-header {
+    background: #3880ff;
+    color: #fff;
+    text-align: center;
+    border-radius: 14px 14px 0 0;
+    padding: 12px;
+    
+    h2 {
+      font-size: 16px;
+      margin: 0;
+    }
+  }
+  p{
+margin-top: 13px;
+}
+}
+

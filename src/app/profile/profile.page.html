@@ -1,0 +1,185 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">profile</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content> -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<div class="mobileScreen">
+  <div class="header">
+    <div class="col-md-12">
+      <div class="logo">
+        <img src="../../assets/images/logo.png" style="width:45px;" (click)="navigateHome()">
+      </div>
+      <div class="loins">
+        <div class="navigation">
+          <div class="user-box">
+            <div class="image-box">
+              <img *ngIf="loginprofile" src="{{siteUrl}}uploads/images/{{loginprofile.profile.photo}}" alt="avatar">
+            </div>
+            <p class="username">D Poojitha</p>
+          </div>
+          <div class="menu-toggle"></div>
+          <ul class="menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Notification</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="platters">
+    <div class="container py-2">
+      <div class="d-flex align-items-center justify-content-between mb-1 p-2">
+
+        <!-- Back Icon -->
+        <i class="fa fa-arrow-left" style="cursor: pointer;" (click)="navigateHome()"></i>
+
+        <!-- Title and Button Container -->
+        <div class="d-flex justify-content-center align-items-center flex-grow-1 position-relative">
+          <h1 class="m-0 text-center" style="font-size: 20px;">
+            {{loginprofile?.setting?.sname}}
+          </h1>
+        </div>
+
+      </div>
+    </div>
+    <!-- <div class="titleBar"  *ngIf="loginprofile">
+      <h1>{{loginprofile?.setting.sname}}</h1>
+    </div> -->
+
+
+    <div class="platterBox">
+      <div class="platterHeader">
+        <div class="titleContainer">
+          <div class="iconContainer" *ngIf="loginprofile?.profile?.photo">
+            <img src="{{siteUrl}}uploads/images/{{loginprofile.profile.photo}}" alt="">
+          </div>
+          <div class="textContent">
+            <span class="title">{{loginprofile?.profile.name}}</span>
+            <span class="shortDescription">
+              {{loginprofile?.profile.registerNO}}
+            </span>
+          </div>
+        </div>
+        <i data-feather="heart" class="added"></i>
+      </div>
+      <!-- <div class="platterBody">
+        <div class="platterInfoBox">
+          <span class="label">Mobile Number</span>
+          <span class="value">{{loginprofile?.profile.phone}}</span>
+        </div>
+        <div class="platterInfoBox">
+          <span class="label">Roll Number</span>
+          <span class="value">123456</span>
+        </div>
+        <div class="platterInfoBox">
+          <span class="label">Class</span>
+          <span class="value">8 Stands</span>
+        </div>
+        <div class="platterInfoBox">
+          <span class="label">Section</span>
+          <span class="value">B</span>
+        </div>
+      </div> -->
+    </div>
+    <div class="card shadow-sm rounded-4" *ngIf="loginprofile">
+      <div class="card-body">
+        <h5 class="fw-bold mb-3">Personal Information</h5>
+        <table class="table table-bordered small">
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.name}}</td>
+            </tr>
+            <tr *ngIf="profileData?.usertype != 'Teacher'">
+              <th>Register NO</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.registerNO}}</td>
+            </tr>
+            <tr *ngIf="profileData?.usertype != 'Teacher'">
+              <th>Roll</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.roll}}</td>
+            </tr>
+            <tr *ngIf="profileData?.usertype != 'Teacher'">
+              <th>Class</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.srclasses}}</td>
+            </tr>
+            <tr *ngIf="profileData?.usertype != 'Teacher'">
+              <th>Section</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.srsection}}</td>
+            </tr>
+             <tr *ngIf="profileData?.usertype == 'Teacher'">
+              <th>RFID</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.rfid}}</td>
+            </tr>
+            <tr *ngIf="profileData?.usertype == 'Teacher'">
+              <th>Designation</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.designation}}</td>
+            </tr>
+            <tr *ngIf="profileData?.usertype == 'Teacher'">
+              <th>Joining Date</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.jod}}</td>
+            </tr>
+           
+            <tr>
+              <th>Phone Number</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.phone}}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.email}}</td>
+            </tr>
+            <tr>
+              <th>Gender</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.sex}}</td>
+            </tr>
+            <tr *ngIf="profileData?.usertype != 'Teacher'">
+              <th>Blood Group</th>
+              <td>:</td>
+              <td>{{loginprofile?.profile.bloodgroup}}</td>
+            </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+
+
+
+</div>
+<script>
+  let menuToggle = document.querySelector('.menu-toggle');
+  let navigation = document.querySelector('.navigation');
+
+  menuToggle.onclick = function () {
+    navigation.classList.toggle('active');
+  }
+</script>
+
+<app-loader *ngIf="isLoading"></app-loader>

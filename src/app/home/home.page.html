@@ -1,0 +1,198 @@
+<!-- <ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Our School ERP</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let category of categories">
+        <ion-card class="category-card">
+          <ion-card-content class="text-center">
+            <ion-icon [name]="category.icon" size="large"></ion-icon>
+            <p>{{ category.label }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content> -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+<div class="mobileScreen">
+  <div class="header">
+    <div class="col-md-12">
+      <div class="logo">
+        <img src="../../assets/images/logo.png" style="width:45px;">
+      </div>
+      <div class="loins">
+        <div class="navigation">
+          <div class="user-box">
+            <div class="image-box">
+              <img *ngIf="loginprofile"
+                src="{{siteUrl}}uploads/images/{{loginprofile.profile.photo}}"
+                alt="avatar">
+            </div>
+            <ion-icon name="log-out-outline" style="font-size: 24px;color: white;" slot="start" (click)="logout()"></ion-icon>
+          </div>
+          
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <header>
+    <i class="fa fa-arrow-left" aria-hidden="true" hidden></i>
+    <span class="title">Student App</span>
+    <div class="titleContainer">
+
+    <div class="user">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt="user" (click)="profileNavigate()" style="cursor: pointer; width: 100px; height: auto;">
+    </div>
+    <div>
+      <ion-icon name="log-out-outline" style="font-size: 24px;color: green;" slot="start" (click)="logout()"></ion-icon>
+    </div>
+    <div>
+   
+
+    </div>
+  </div>
+    
+  </header> -->
+  
+  <section class="platters">
+    <div class="titleBar" *ngIf="loginprofile">
+      <h1>{{loginprofile?.setting?.sname}}</h1>
+    </div>
+    <div class="platterBox">
+      <div class="platterHeader">
+        <div class="titleContainer">
+          <div class="iconContainer">
+            <img *ngIf="loginprofile" src="{{siteUrl}}uploads/images/{{loginprofile.profile.photo}}" alt="" >
+          </div>
+          <div class="textContent">
+            <span class="title">{{loginprofile?.profile.name}}</span>
+            <span class="shortDescription">
+             {{loginprofile?.profile.registerNO}}
+            </span>
+          </div>
+        </div>
+        <i data-feather="heart" class="added"></i>
+      </div>
+      <div class="platterBody" *ngIf="profileData?.usertype != 'Teacher'">
+        <div class="platterInfoBox">
+          <span class="label">Mobile Number</span>
+          <span class="value">{{loginprofile?.profile.phone}}</span>
+        </div>
+        <div class="platterInfoBox">
+          <span class="label">Roll Number</span>
+          <span class="value">{{loginprofile?.profile.roll}}</span>
+        </div>
+        <div class="platterInfoBox">
+          <span class="label">Class</span>
+          <span class="value">{{loginprofile?.profile.srclasses}}</span>
+        </div>
+        <div class="platterInfoBox">
+          <span class="label">Section</span>
+          <span class="value">{{loginprofile?.profile.srsection}}</span>
+        </div>
+      </div>
+      <div class="platterBody" *ngIf="profileData?.usertype == 'Teacher'">
+        <div class="platterInfoBox">
+          <span class="label">Designation</span>
+          <span class="value">{{loginprofile?.profile.designation}}</span>
+        </div>
+        <div class="platterInfoBox">
+          <span class="label">Email</span>
+          <span class="value">{{loginprofile?.profile.email}}</span>
+        </div>
+        <div class="platterInfoBox">
+          <span class="label">Mobile Number</span>
+          <span class="value">{{loginprofile?.profile.phone}}</span>
+        </div>
+        
+      </div>
+    </div>
+      <!-- Menu Grid -->
+      <div class="row g-3" *ngIf="profileData?.usertype != 'Teacher'" >
+        <div *ngFor="let menu of studentMenu" class="col-4">
+          <div class="box" style="cursor: pointer;" (click)="gotoMenu(menu.title)">
+            <div class="icon"><ion-icon [name]="menu.icon" size="large"></ion-icon></div>
+            <div class="content">
+              <p class="small fw-semibold text-center m-0 text-wrap" style="font-size: 12px;">{{ menu.title }}</p>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="row g-3" *ngIf="profileData?.usertype == 'Teacher'" >
+        <div *ngFor="let menu of teacherMenu" class="col-4">
+          <div class="box" style="cursor: pointer;" (click)="gotoMenu(menu.title)">
+            <div class="icon"><ion-icon [name]="menu.icon" size="large"></ion-icon></div>
+            <div class="content">
+              <p class="small fw-semibold text-center m-0 text-wrap" style="font-size: 12px;">{{ menu.title }}</p>
+          </div>
+          </div>
+        </div>
+      </div>
+    <!-- <div class="">
+      <div class="box-wrap">
+        <div class="box1" >
+          <i class="fa fa-graduation-cap modal-toggle" aria-hidden="true"></i>
+          <span>Online Classes</span>
+        
+        </div>
+        <div class="box1">
+          <i class="fa fa-laptop modal-toggle" aria-hidden="true"></i>
+          <span>Online Exams</span>
+        </div>
+      </div>
+      <div class="box-wrap">
+        <div class="box1">
+        <i class="fa fa-laptop modal-toggle" aria-hidden="true"></i>
+              <span>Digital Content</span>
+        </div>
+        <div class="box1">
+          <i class="fa fa-briefcase modal-toggle" aria-hidden="true"></i>
+          <span>Fees</span>
+        </div>
+      </div>
+      <div class="box-wrap">
+        <div class="box1">
+          <i class="fa fa-graduation-cap modal-toggle" aria-hidden="true"></i>
+              <span>Circulars</span>
+        </div>
+        <div class="box1">
+          <i class="fa fa-laptop modal-toggle" aria-hidden="true"></i>
+          <span>Support</span>
+        </div>
+      </div>
+      <div class="box-wrap">
+        <div class="box1">
+          <i class="fa fa-briefcase modal-toggle" aria-hidden="true"></i>
+              <span>Menu</span>
+        </div>
+        <div class="box1">
+          <i class="fa fa-graduation-cap modal-toggle" aria-hidden="true"></i>
+          <span>Progress Report</span>
+        </div>
+      </div>
+      <div class="box-wrap">
+        <div class="box1">
+          <i class="fa fa-graduation-cap modal-toggle" aria-hidden="true"></i>
+              <span>Transport</span>
+        </div>
+        <div class="box1">
+          <i class="fa fa-briefcase modal-toggle" aria-hidden="true"></i>
+          <span>Settings</span>
+        </div>
+      </div>
+    </div> -->
+    
+  </section>
+ 
+</div>
+
+<app-loader *ngIf="isLoading"></app-loader>

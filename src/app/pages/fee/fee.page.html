@@ -1,0 +1,545 @@
+<div class="mobileScreen">
+  <!-- Header Start -->
+  <div class="header">
+    <div class="col-md-12">
+      <div class="logo">
+        <img src="../../assets/images/logo.png" style="width:45px;">
+      </div>
+      <div class="loins">
+        <div class="navigation">
+          <div class="user-box">
+            <div class="image-box">
+              <img
+                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxivAs4UknzmDfLBXGMxQkayiZDhR2ftB4jcIV7LEnIEStiUyMygioZnbLXCAND-I_xWQpVp0jv-dv9NVNbuKn4sNpXYtLIJk2-IOdWQNpC2Ldapnljifu0pnQqAWU848Ja4lT9ugQex-nwECEh3a96GXwiRXlnGEE6FFF_tKm66IGe3fzmLaVIoNL/s1600/img_avatar.png"
+                alt="avatar">
+            </div>
+            <p class="username">D Poojitha</p>
+          </div>
+          <div class="menu-toggle"></div>
+          <ul class="menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Notification</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Header End -->
+
+  <!-- Breadcrumb Strat -->
+
+
+  <div class="container py-2">
+    <div class="d-flex align-items-center justify-content-between mb-1 p-2">
+
+      <!-- Back Icon -->
+      <i class="fa fa-arrow-left" style="cursor: pointer;" (click)="navigateHome()"></i>
+
+      <!-- Title and Button Container -->
+      <div class="d-flex justify-content-center align-items-center flex-grow-1 position-relative">
+      <h1 class="m-0 text-center" style="font-size: 20px;">
+  {{ viewMode === 'detail' ? 'Fee Details' : 'Fees' }}
+</h1>
+      </div>
+
+    </div>
+  </div>
+  <!-- Breadcrumb End -->
+
+  <!-- Fees Start -->
+  <!-- Fees Start -->
+  <ion-content class="ion-padding">
+
+    <!-- List Section -->
+<!-- List Section -->
+<div *ngIf="viewMode === 'list'">
+  <ion-card *ngFor="let invoice of invoiceList" class="invoice-card">
+    <ion-card-content>
+      <strong>{{ invoice.student }}</strong><br />
+      <small>Father: {{ invoice.father }}</small>
+
+      <div class="info-row">
+        <span><strong>Class:</strong> {{ invoice.class }}</span>
+        <span><strong>Section:</strong> {{ invoice.section }}</span>
+      </div>
+
+      <div class="info-row">
+        <span><strong>Total:</strong> ₹{{ invoice.total }}</span>
+        <span><strong>Balance:</strong> ₹{{ invoice.balance }}</span>
+      </div>
+
+      <div class="info-row">
+        <span>
+          <strong>Status:</strong>
+          <ion-badge [color]="getStatusColor(invoice.paidstatus)">
+            {{ getStatusLabel(invoice.paidstatus) }}
+          </ion-badge>
+        </span>
+        <span><strong>Date:</strong> {{ invoice.date }}</span>
+      </div>
+
+     <div class="row" style="display:flex; justify-content:flex-start; gap:10px; flex-wrap:wrap;margin-top: 5px;">
+  <div class="column" style="flex:1; min-width:120px;">
+    <ion-button size="small" color="primary" fill="outline" (click)="viewInvoice(invoice)" style="width:100%;">
+      <ion-icon name="eye-outline" slot="start"></ion-icon>
+      View Invoice's
+    </ion-button>
+  </div>
+  <div class="column" style="flex:1; min-width:150px;">
+    <ion-button size="small" color="secondary" fill="outline" (click)="viewInvoiceList(invoice)" style="width:100%;">
+      <ion-icon name="document-text-outline" slot="start"></ion-icon>
+      View Payment's
+    </ion-button>
+  </div>
+</div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Popup for Payment List - place this OUTSIDE the ngFor loop -->
+<div class="overlay" *ngIf="showPaymentPopup">
+  <div class="popup">
+    <!-- Header -->
+    <div class="popup-header">
+      <h2 class="popup-title">
+        Payment List for <span>{{ selectedInvoice?.student }}</span>
+      </h2>
+      <ion-button fill="clear" color="light" class="close-btn" (click)="closePaymentPopup()">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+
+    <!-- Content -->
+    <div class="popup-content">
+      <div style="width:100%; overflow-x:auto;">
+        <table class="payment-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Weaver</th>
+              <th>Fine</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pay of paymentList; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>₹{{ pay.paymentamount }}</td>
+              <td>{{ pay.date }}</td>
+              <td>{{ pay.paymenttype }}</td>
+              <td>₹{{ pay.weaveramount || 0 }}</td>
+              <td>₹{{ pay.fineamount || 0 }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noPayment>
+        <p>No payment records found.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+
+</div>
+ 
+
+
+    <!-- View Section -->
+   <div *ngIf="viewMode === 'detail'">
+
+    <div class="div-overflow-css">
+    <ion-row class="invoice-info">
+      <ion-col [size]="8" class=" invoice-col font-size" >
+          From
+          <address>
+          <strong>{{siteinfos?.sname}}</strong><br>
+          {{siteinfos?.address}}<br>
+          Phone  : {{siteinfos?.phone}}<br>
+            Email  : {{siteinfos?.email}}<br>
+        </address>
+      </ion-col>
+      <ion-col [size]="4" class="font-size">
+        <b>Invoice  #{{maininvoice?.maininvoiceID}}</b><br>
+        Payment Status  : <span class="text-green" *ngIf="maininvoice?.maininvoicestatus==2">Full Paid</span><span class="text-green" *ngIf="maininvoice?.maininvoicestatus==1">Partially Paid</span><span class="text-green" *ngIf="maininvoice?.maininvoicestatus==0">Not Paid</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="font-size" >
+        To
+        <address>
+        <strong>{{maininvoice?.srname}}</strong><br>
+        Roll  : {{maininvoice?.srroll}}<br>
+        Class  : {{maininvoice?.srclasses}}<br>
+        Admission NO  :{{maininvoice?.registerNO}}<br>
+      </address>
+      </ion-col>
+    </ion-row>
+    <br>
+    <div class="div-overflow-css">
+          <table class="table table-bordered product-style">
+            <thead>
+            <tr>
+              <th class="col-lg-2">#</th>
+              <th class="col-lg-4">Fee Type</th>
+              <th class="col-lg-2">Amount</th>
+              <th class="col-lg-2">Discount</th>
+              <th class="col-lg-2">Subtotal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let invoice of invoices let rowIndex = index">
+              <td data-title="#">{{rowIndex+1}}</td>
+              <td data-title="Fee Type">{{invoice.feetype}}</td>
+              <td data-title="Amount">{{invoice.amount}}</td>
+              <td data-title="Discount">{{invoice?.dicountamount}}</td>
+              <td data-title="Subtotal">{{invoice?.subtotal}} </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td colspan="4"><span class="pull-right"><b>Total Amount (RS)</b></span></td>
+              <td><b>{{grandtotalandpayment?.totalamount}}</b></td>
+            </tr>
+            <tr>
+              <td colspan="4"><span class="pull-right"><b>Paid (RS)</b></span></td>
+              <td><b>{{grandtotalandpayment?.totalpayment}}</b></td>
+            </tr>
+            <tr>
+              <td colspan="4"><span class="pull-right"><b>Weaver (RS)</b></span></td>
+              <td><b>{{grandtotalandpayment?.totalweaver}}</b></td>
+            </tr>
+            <!-- <tr>
+              <td colspan="4"><span class="pull-right"><b>Balance (USD)</b></span></td>
+              <td><b>{{grandtotalandpayment?.balanceamount}}</b></td>
+            </tr>
+            <tr>
+              <td colspan="4"><span class="pull-right"><b>invoice_fine</b></span></td>
+              <td><b>{{grandtotalandpayment?.totalfine}}</b></td>
+            </tr> -->
+            </tfoot>
+          </table>
+
+      <div class="col-sm-3 col-xs-12 pull-right">
+        <div class="well well-sm">
+          <p>
+            Create By : {{createuser}} <br>
+            Date  : {{maininvoice?.maininvoicedate |date: "dd MMM yyyy" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</div>
+
+
+  </ion-content>
+  <!-- Fees End -->
+
+
+  <!-- Fees End -->
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="fee hidden" style="display: none;">
+  <div *ngIf="islist">
+    <div class="platterBox" (click)="gotoSummary()">
+      <div class="platterHeader">
+        <div class="titleContainer1">
+          <div class="d-flex">
+            <span class="icon icon--leadind">
+              <svg class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" data-prefix="fas"
+                data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm116 204c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40z">
+                </path>
+              </svg><!-- <i class="fas fa-calendar-alt"></i> -->
+            </span>
+            <span class="date">07 Sep, 2025</span>
+          </div>
+
+
+          <div class="textContent">
+            <span class="badge rounded-pill text-white px-3 py-[0.5rem]"
+              style="background: transparent;cursor: pointer;background: #00a261 !important;color:#fff;border: 1px solid #00a261;">
+              Paid</span>
+
+          </div>
+
+        </div>
+
+      </div>
+      <div class="fee-content">
+        <div class="textContent">
+          <span class="title">School Fee For May</span>
+        </div>
+        <div class="textContent">
+          <span class="title">3000/-</span>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="platterBox" (click)="gotoSummary()">
+      <div class="platterHeader">
+        <div class="titleContainer1">
+          <div class="d-flex">
+            <span class="icon icon--leadind">
+              <svg class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" data-prefix="fas"
+                data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm116 204c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40z">
+                </path>
+              </svg><!-- <i class="fas fa-calendar-alt"></i> -->
+            </span>
+            <span class="date">07 Sep, 2025</span>
+          </div>
+
+
+          <div class="textContent">
+            <span class="badge rounded-pill text-white px-3 py-[0.5rem]"
+              style="background: transparent;cursor: pointer;background: #00a261 !important;color:#fff;border: 1px solid #00a261;">
+              Paid</span>
+
+          </div>
+
+        </div>
+
+      </div>
+      <div class="fee-content">
+        <div class="textContent">
+          <span class="title">School Fee For May</span>
+        </div>
+        <div class="textContent">
+          <span class="title">3000/-</span>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="platterBox" (click)="gotoSummary()">
+      <div class="platterHeader">
+        <div class="titleContainer1">
+          <div class="d-flex">
+            <span class="icon icon--leadind">
+              <svg class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" data-prefix="fas"
+                data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm116 204c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40z">
+                </path>
+              </svg><!-- <i class="fas fa-calendar-alt"></i> -->
+            </span>
+            <span class="date">07 Sep, 2025</span>
+          </div>
+
+
+          <div class="textContent">
+            <span class="badge rounded-pill text-white px-3 py-[0.5rem]"
+              style="background: transparent;cursor: pointer;background: #00a261 !important;color:#fff;border: 1px solid #00a261;">
+              Paid</span>
+
+          </div>
+
+        </div>
+
+      </div>
+      <div class="fee-content">
+        <div class="textContent">
+          <span class="title">School Fee For May</span>
+        </div>
+        <div class="textContent">
+          <span class="title">3000/-</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="platterBox" (click)="gotoSummary()">
+      <div class="platterHeader">
+        <div class="titleContainer1">
+          <div class="d-flex">
+            <span class="icon icon--leadind">
+              <svg class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" data-prefix="fas"
+                data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm116 204c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40z">
+                </path>
+              </svg><!-- <i class="fas fa-calendar-alt"></i> -->
+            </span>
+            <span class="date">07 Sep, 2025</span>
+          </div>
+
+
+          <div class="textContent">
+            <span class="badge rounded-pill text-white px-3 py-[0.5rem]"
+              style="background: transparent;cursor: pointer;background: #ffae3f !important;color:#fff;border: 1px solid #ffae3f;">
+              unpaid</span>
+
+          </div>
+
+        </div>
+
+      </div>
+      <div class="fee-content">
+        <div class="textContent">
+          <span class="title">School Fee For May</span>
+        </div>
+        <div class="textContent">
+          <span class="title">3000/-</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="platterBox" (click)="gotoSummary()">
+      <div class="platterHeader">
+        <div class="titleContainer1">
+          <div class="d-flex">
+            <span class="icon icon--leadind">
+              <svg class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" data-prefix="fas"
+                data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm116 204c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40z">
+                </path>
+              </svg><!-- <i class="fas fa-calendar-alt"></i> -->
+            </span>
+            <span class="date">07 Sep, 2025</span>
+          </div>
+
+
+          <div class="textContent">
+            <span class="badge rounded-pill text-white px-3 py-[0.5rem]"
+              style="background: transparent;cursor: pointer;background: #ffae3f !important;color:#fff;border: 1px solid #ffae3f;">
+              unpaid</span>
+
+          </div>
+
+        </div>
+
+      </div>
+      <div class="fee-content">
+        <div class="textContent">
+          <span class="title">School Fee For May</span>
+        </div>
+        <div class="textContent">
+          <span class="title">3000/-</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Fees Details Strat -->
+  <div class="Fee-box" *ngIf="isSummary">
+    <div class="title-box">
+      <h3>School Fee For May</h3>
+      <p>ID: 548856</p>
+    </div>
+
+    <div class="border"></div>
+    <div class="cost-box">
+      <div>
+        <p>School Fee</p>
+        <p class="VAT">$123.00</p>
+      </div>
+      <div>
+        <p>Tution Fee</p>
+        <p class="VAT">$123.00</p>
+      </div>
+
+      <div>
+        <p>Library Fee</p>
+        <p class="VAT">$123.00</p>
+      </div>
+      <div>
+        <p>Activity Fee</p>
+        <p class="VAT">$123.00</p>
+      </div>
+      <div>
+        <p>Exam Fee</p>
+        <p class="VAT">$123.00</p>
+      </div>
+      <div>
+        <p>Late Charges</p>
+        <p class="VAT">$123.00</p>
+      </div>
+      <div>
+        <p>Discount (%%)</p>
+        <p class="VAT">$123.00</p>
+      </div>
+      <div class="border"></div>
+      <div>
+        <p>Total Fee</p>
+        <p class="VAT">$1234.00</p>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Fee Details End -->
+
+
+  <!--- Payment Gateway Start -->
+  <div class="Fee-box" *ngIf="ispayment">
+
+    <!---Payment Gate Way start -->
+    <div class="card-plan">
+      <div class="card-plan-img"><img style="width: 35px;"
+          src="https://images.seeklogo.com/logo-png/27/2/google-logo-png_seeklogo-273191.png" alt=""></div>
+      <div class="card-plan-text">
+        <div class="card-plan-title">Google Pay</div>
+      </div>
+      <!-- <div class="card-plan-link"><a href="#!">Change</a></div> -->
+    </div>
+    <div class="card-plan">
+      <div class="card-plan-img"><img style="width: 35px;border-radius: 5px;"
+          src="https://ps.w.org/phonepe-payment-solutions/assets/icon-256x256.png?rev=2756185" alt=""></div>
+      <div class="card-plan-text">
+        <div class="card-plan-title">phonepe</div>
+      </div>
+      <!-- <div class="card-plan-link"><a href="#!">Change</a></div> -->
+    </div>
+    <div class="card-plan">
+      <div class="card-plan-img"><img style="width: 45px;" src="https://img.icons8.com/color/512/visa.png" alt="">
+      </div>
+      <div class="card-plan-text">
+        <div class="card-plan-title">VISA Pay </div>
+      </div>
+      <!-- <div class="card-plan-link"><a href="#!">Change</a></div> -->
+    </div>
+  </div>
+
+  <div class="btn-section" (click)="paynow()">
+    <button class="Checkout-btn">Pay Now</button>
+  </div>
+  <!--- Payment Gateway End -->
+</div>

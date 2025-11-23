@@ -1,0 +1,121 @@
+<div class="mobileScreen">
+  <!-- Header -->
+  <div class="header">
+    <div class="col-md-12">
+      <div class="logo">
+        <img src="../../assets/images/logo.png" style="width:45px;">
+      </div>
+      <div class="loins">
+        <div class="navigation">
+          <div class="user-box">
+            <div class="image-box">
+              <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxivAs4UknzmDfLBXGMxQkayiZDhR2ftB4jcIV7LEnIEStiUyMygioZnbLXCAND-I_xWQpVp0jv-dv9NVNbuKn4sNpXYtLIJk2-IOdWQNpC2Ldapnljifu0pnQqAWU848Ja4lT9ugQex-nwECEh3a96GXwiRXlnGEE6FFF_tKm66IGe3fzmLaVIoNL/s1600/img_avatar.png" alt="avatar">
+            </div>
+            <p class="username">D Poojitha</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb -->
+  <div class="container py-2">
+    <div class="d-flex align-items-center justify-content-between mb-1 p-2">
+      <i class="fa fa-arrow-left" style="cursor: pointer;" (click)="back()"></i>
+      <div class="d-flex justify-content-center align-items-center flex-grow-1 position-relative">
+        <h1 class="m-0 text-center" style="font-size: 20px;">Paid Fees</h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paid Fees List -->
+ <ion-content class="ion-padding">
+
+  <!-- List of invoices -->
+  <div *ngIf="!showDetail">
+    <ion-card *ngFor="let invoice of invoiceList" style="margin-bottom:12px;" class="invoice-card">
+      <ion-card-content style="padding: 13px;">
+        <strong>{{ invoice.student }}</strong><br />
+       
+        <div class="info-row">
+        <span class="text-start"><strong>Class:</strong> {{ invoice.class }}</span>
+        <span class="text-end"><strong>Section:</strong> {{ invoice.section }}</span>
+      </div>
+          <div class="info-row" >
+          <span class="text-start"><strong>Total:</strong> ₹{{ invoice.total }}</span>
+          <span class="text-end"><strong>Balance:</strong> ₹{{ invoice.balance }}</span>
+        </div>
+          <div class="info-row">
+          <span class="text-start">
+            <strong>Status:</strong>
+            <ion-badge [color]="getStatusColor(invoice.paidstatus)" style="    margin-left: 8px;    margin-bottom: -5px;">
+              {{ getStatusLabel(invoice.paidstatus) }}
+            </ion-badge>
+          </span>
+          <span class="text-end"><strong>Date:</strong> {{ invoice.date }}</span>
+        </div>
+        <div class="row">
+           <ion-button size="small" color="primary" (click)="viewInvoice(invoice)">View</ion-button>
+        </div>
+       
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Full-page invoice detail -->
+  <div *ngIf="showDetail && selectedInvoice">
+    
+    <ion-card class="invoice-detail-card m-0">
+      <ion-card-header>
+      
+        <strong>{{ selectedInvoice.student }}'s Invoice</strong>
+      </ion-card-header>
+      <ion-card-content>
+       
+        <p><strong>Class:</strong> {{ selectedInvoice.class }} | <strong>Section:</strong> {{ selectedInvoice.section }}</p>
+        <p><strong>Total:</strong> ₹{{ selectedInvoice.total }} | <strong>Balance:</strong> ₹{{ selectedInvoice.balance }}</p>
+        <p><strong>Status:</strong>
+          <ion-badge [color]="getStatusColor(selectedInvoice.paidstatus)">
+            {{ getStatusLabel(selectedInvoice.paidstatus) }}
+          </ion-badge>
+        </p>
+
+        <!-- Payments Table -->
+        <div *ngIf="payments.length > 0" style="overflow-x:auto;margin-top:10px;">
+        <table 
+  class="table table-bordered" 
+  style="width:100%; font-size:16px; min-width: 100%; border-collapse: collapse; text-align:center;"
+>
+  <thead>
+    <tr style="background-color:#f1f1f1;">
+      <th style="padding:8px;">#</th>
+      <th style="padding:8px;">Amount</th>
+      <th style="padding:8px;">Date</th>
+      <th style="padding:8px;">Type</th>
+      <th style="padding:8px;">Weaver</th>
+      <th style="padding:8px;">Fine</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of payments; let i = index" style="padding:6px;">
+      <td style="padding:8px;">{{ i + 1 }}</td>
+      <td style="padding:8px;">₹{{ p.paymentamount }}</td>
+      <td style="padding:8px;">{{ p.date }}</td>
+      <td style="padding:8px;">{{ p.paymenttype }}</td>
+      <td style="padding:8px;">₹{{ p.weaveramount || 0 }}</td>
+      <td style="padding:8px;">₹{{ p.fineamount || 0 }}</td>
+    </tr>
+  </tbody>
+</table>
+
+        </div>
+        <div *ngIf="payments.length === 0">
+          <p>No payments found.</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>
+
+</div>

@@ -1,0 +1,259 @@
+.invoice-card {
+  border-left: 4px solid #3880ff;
+  margin: 0px 0px 12px 0px
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+
+// view
+.row{
+  display: flex;
+  // flex-direction: column;
+}
+.invoice {
+  position: relative;
+  width: 100%;
+  margin: 0px;
+  background: #fff;
+  border: 1px solid #f4f4f4;
+}
+.font-size {
+  font-size: 13px !important;
+}
+.div-overflow-css {
+  overflow-x:scroll;
+  padding: 5px;
+}
+.invoice {
+  position: relative;
+  width: 100%;
+  margin: 0px;
+  background: #fff;
+  border: 1px solid #f4f4f4;
+}
+.invoice-title {
+  margin-top: 0;
+}
+.text-red {
+  color: #f56954 !important;
+}
+.text-yellow {
+  color: #f39c12 !important;
+}
+.text-aqua {
+  color: #00c0ef !important;
+}
+.text-blue {
+  color: #0073b7 !important;
+}
+.text-black {
+  color: #222222 !important;
+}
+.text-light-blue {
+  color: #3c8dbc !important;
+}
+.text-green {
+  color: #00a65a !important;
+}
+
+.img-circle {
+  border-radius: 50%;
+}
+
+img {
+  max-width: 100% !important;
+}
+
+img {
+  vertical-align: middle;
+}
+img {
+  border: 0;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.table-bordered {
+  border: 1px solid #E2E7EB;
+}
+.table-bordered > thead > tr > th {
+  border-bottom-width: 2px;
+  color: #1A2229;
+  font-weight: 300;
+}
+.table-bordered > tbody > tr > td {
+  color: #707070;
+}
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > td {
+  border-color: #E2E7EB;
+  font-size: 12px;
+}
+
+.table-bordered>thead>tr>th,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>tbody>tr>td,
+.table-bordered>tfoot>tr>td {
+  border: 1px solid #ddd;
+}
+
+.table>thead>tr>th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
+}
+.table>thead>tr>th,
+.table>tbody>tr>th,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>td,
+.table>tfoot>tr>td {
+  padding: 4px;
+  line-height: 1.428571429;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+.table.table-bordered.product-style > thead > tr > th, .table.table-bordered.product-style > tbody > tr > td, .table.table-bordered.product-style > tfoot > tr > td {
+  font-size: 14px;
+  text-align: center;
+}
+
+.table.table-bordered.product-style > thead > tr > th {
+  background-color: #0054e9;
+  color: #fff;
+  font-weight: bold;
+}
+
+.table.table-bordered.product-style > thead > tr > th, .table.table-bordered.product-style > tbody > tr > td {
+  padding: 4px 4px !important;
+  line-height: 1.222;
+}
+
+.table.table-bordered.product-style > thead > tr > th > .form-control, .table.table-bordered.product-style > tbody > tr > td > .form-control {
+  text-align: center;
+}
+
+/* Overlay background */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Popup box */
+.popup {
+  background: #fff;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  overflow: hidden;
+  animation: popupShow 0.3s ease-out;
+}
+
+/* Popup header */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #007bff;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Close button */
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Popup content */
+.popup-content {
+  padding: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Table styling */
+.popup-content table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.popup-content th, .popup-content td {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+}
+
+.popup-content th {
+  background: #f2f2f2;
+}
+
+/* Popup animation */
+@keyframes popupShow {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+ion-button .button-native {
+  text-transform: capitalize !important;
+}
+/* Popup Box */
+.popup {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1976d2; /* Nice blue */
+  color: #fff;
+  padding: 12px 16px;
+}
+
+.popup-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.popup-title span {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+/* Close button */
+.close-btn {
+  font-size: 20px;
+  color: #fff !important;
+  --padding-start: 0;
+  --padding-end: 0;
+  --ripple-color: transparent;
+}

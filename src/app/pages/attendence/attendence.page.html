@@ -1,0 +1,121 @@
+
+
+<div class="mobileScreen">
+  <div class="header">
+    <div class="col-md-12">
+      <div class="logo">
+        <img src="../../assets/images/logo.png" style="width:45px;" (click)="navigateHome()">
+      </div>
+      <div class="loins">
+        <div class="navigation">
+          <div class="user-box">
+            <div class="image-box">
+              <img
+                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxivAs4UknzmDfLBXGMxQkayiZDhR2ftB4jcIV7LEnIEStiUyMygioZnbLXCAND-I_xWQpVp0jv-dv9NVNbuKn4sNpXYtLIJk2-IOdWQNpC2Ldapnljifu0pnQqAWU848Ja4lT9ugQex-nwECEh3a96GXwiRXlnGEE6FFF_tKm66IGe3fzmLaVIoNL/s1600/img_avatar.png"
+                alt="avatar">
+            </div>
+            <p class="username">D Poojitha</p>
+          </div>
+          <div class="menu-toggle"></div>
+          <ul class="menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Notification</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+<div  class="attendence">
+  <div class="cal__main">
+    <div class="back mb-2 p-2">
+      <i class="fa fa-arrow-left"  aria-hidden="true" (click)="navigateHome()"></i>
+    </div>
+    <div class="cal__container">
+      <div class="calendar__top">
+        <span class="arrow" id="back__arrow" *ngIf="!isFirstMonth">
+          <ion-buttons slot="start" style="color: #fff !important;">
+          <ion-icon name="arrow-back"  (click)="goToPreviousMonth()" ></ion-icon>
+        </ion-buttons>
+      </span>
+        <div class="calendar__day">
+          <span class="cal__month" id="cal__month">{{currentMonth}}</span>
+          <span class="cal__date" id="cal__date">{{ currentDate }}</span>
+        </div>
+        <div class="calendar__time">
+          <!-- <span class="cal__time" id="cal__time">10:42 PM</span> -->
+        </div>
+        <span class="arrow" id="next__arrow" *ngIf="!isCurrentMonth"><ion-buttons slot="end" style="color: #fff !important;">
+          <ion-icon  name="arrow-forward"  (click)="goToNextMonth()" ></ion-icon>
+        </ion-buttons></span>
+      </div>
+      <div class="calendar__bottom">
+        <div class="attendance-container">
+          
+          <!-- Day Headers -->
+          <div class="attendance-grid">
+            <div class="day-header" *ngFor="let day of ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']">
+              {{ day }}
+            </div>
+        
+            <!-- Days with Offset -->
+            <ng-container *ngFor="let day of daysWithOffset">
+              <span 
+                [ngClass]="getDayClass(day)" 
+                *ngIf="day" 
+                class="day"
+              >
+                {{ day }}
+              </span>
+              <span *ngIf="!day"></span>
+            </ng-container>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="platters">
+    <div class="platterBox blue">
+      <div class="platterHeader">
+        <div class="titleContainer">
+          <div class="iconContainer"><i class='fa fa-user-circle' style="font-size: 30px;"></i>
+          </div>
+          <div class="textContent"><span class="shortDescription"> Presnt </span><span class="title">{{ yearlyAttendanceSummary.present }}</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="platterBox orange">
+      <div class="platterHeader">
+        <div class="titleContainer">
+          <div class="iconContainer"><i class='fa fa-user-circle' style="font-size: 30px;"></i>
+          </div>
+          <div class="textContent"><span class="shortDescription"> Absent </span><span class="title">{{ yearlyAttendanceSummary.absent }}</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="platterBox pink">
+      <div class="platterHeader">
+        <div class="titleContainer">
+          <div class="iconContainer"><i class='fa fa-user-circle' style="font-size: 30px;"></i>
+          </div>
+          <div class="textContent"><span class="shortDescription"> Holiday's </span><span class="title">{{ yearlyAttendanceSummary.holidays }}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="attendence-list">
+    <ol class="squared">
+      <li class="green">Present</li>
+      <li class="red">Absent</li>
+      <li class="yellow">Weekends</li>
+      <li class="blue">Holiday</li>
+    </ol>
+   
+  </div>
+</div>
+
+<app-loader *ngIf="isLoading"></app-loader>

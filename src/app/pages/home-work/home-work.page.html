@@ -1,0 +1,139 @@
+<div class="mobileScreen">
+  <!-- Header Start -->
+  <div class="header">
+    <div class="col-md-12">
+      <div class="logo">
+        <img src="../../assets/images/logo.png" style="width:45px;">
+      </div>
+      <div class="loins">
+        <div class="navigation">
+          <div class="user-box">
+            <div class="image-box">
+              <img
+                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxivAs4UknzmDfLBXGMxQkayiZDhR2ftB4jcIV7LEnIEStiUyMygioZnbLXCAND-I_xWQpVp0jv-dv9NVNbuKn4sNpXYtLIJk2-IOdWQNpC2Ldapnljifu0pnQqAWU848Ja4lT9ugQex-nwECEh3a96GXwiRXlnGEE6FFF_tKm66IGe3fzmLaVIoNL/s1600/img_avatar.png"
+                alt="avatar">
+            </div>
+            <p class="username">D Poojitha</p>
+          </div>
+          <div class="menu-toggle"></div>
+          <ul class="menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Notification</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Header End -->
+
+  <!-- Breadcrumb Start -->
+  <div class="container py-2">
+    <div class="d-flex align-items-center justify-content-between mb-1 p-2">
+      <!-- Back Icon -->
+      <i class="fa fa-arrow-left" style="cursor: pointer;" (click)="navigateHome()"></i>
+
+      <!-- Title -->
+      <div class="d-flex justify-content-center align-items-center flex-grow-1 position-relative">
+        <h1 class="m-0 text-center" style="font-size: 20px;">
+          {{ viewMode === 'detail' ? 'Home Work Details' : 'Home Work' }}
+        </h1>
+      </div>
+    </div>
+  </div>
+  <!-- Breadcrumb End -->
+
+  <!-- Content -->
+  <ion-content class="ion-padding">
+
+    <!-- LIST VIEW -->
+    <div *ngIf="viewMode === 'list'">
+      <ion-card *ngFor="let hw of assignmentList" class="homework-card" style="margin: 0;margin-bottom: 20px;">
+        <ion-card-content>
+          <strong>{{ hw.title }}</strong><br />
+          <small><strong>Subject:</strong> {{ hw.subject }} ({{ hw.subject_code }})</small>
+
+          <div class="info-row mt-2">
+            <span><strong>Deadline:</strong> {{ hw.deadlinedate }}</span>
+          </div>
+
+          <div class="info-row">
+            <span><strong>Sections:</strong> {{ hw.section_names.join(', ') }}</span>
+          </div>
+
+          <div class="ion-text-right ion-margin-top">
+            <ion-button size="small" color="primary" fill="outline" (click)="viewHomework(hw)">
+              <ion-icon name="eye-outline" slot="start"></ion-icon>
+              View
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <!-- LIST VIEW END -->
+
+    <!-- DETAIL VIEW -->
+    <div *ngIf="viewMode === 'detail' && selectedHomework">
+
+      <!-- Homework Info -->
+     <ion-card *ngIf="selectedHomework">
+  <ion-card-header>
+    <ion-card-title>{{ selectedHomework?.title }}</ion-card-title>
+    <ion-card-subtitle>
+      {{ selectedHomework?.subject }} ({{ selectedHomework?.subject_code }})
+    </ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <p><strong>Description:</strong> {{ selectedHomework?.description }}</p>
+    <p><strong>Deadline:</strong> {{ selectedHomework?.deadlinedate }}</p>
+    <p><strong>Sections:</strong> {{ selectedHomework?.section_names?.join(', ') }}</p>
+    <p><strong>Created By:</strong> {{ selectedHomework?.create_username }}</p>
+    <p><strong>Created On:</strong> {{ selectedHomework?.create_date | date:'medium' }}</p>
+  </ion-card-content>
+</ion-card>
+
+      <!-- Submitted Answers -->
+      <ion-card *ngIf="selectedHomework.assignmentanswers?.length > 0">
+        <ion-card-header>
+          <ion-card-title>Submitted Answers</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div *ngFor="let ans of selectedHomework.assignmentanswers" class="answer-item">
+            <p><strong>Student:</strong> {{ ans.srname }} (Roll: {{ ans.srroll }})</p>
+            <p><strong>Date:</strong> {{ ans.answerdate }}</p>
+            <p>
+              <strong>File:</strong>
+              <a [href]="apiEndPoint + 'uploads/assignmentanswer/' + ans.answerfile" target="_blank">
+                {{ ans.answerfileoriginal }}
+              </a>
+            </p>
+            <ion-item-divider></ion-item-divider>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Upload Section -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Upload Your Answer</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <input type="file" accept=".pdf,.doc,.docx,.jpg,.png" (change)="onFileSelected($event)" />
+
+          <ion-button expand="block" color="primary" class="ion-margin-top" (click)="submitHomework()">
+            <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+            Submit Homework
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+    <!-- DETAIL VIEW END -->
+
+  </ion-content>
+
+</div>
+
+<app-loader *ngIf="isLoading"></app-loader>

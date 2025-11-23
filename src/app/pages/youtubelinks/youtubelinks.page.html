@@ -1,0 +1,82 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>youtubelinks</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">youtubelinks</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content> -->
+
+
+<div class="mobileScreen">
+  <!-- Header Start -->
+  <div class="header" >
+    <div class="col-md-12">
+      <div class="logo"  (click)="navigateHome()">
+        <img src="../../assets/images/logo.png" style="width:45px;">
+      </div>
+      <div class="loins">
+        <div class="navigation">
+          <div class="user-box">
+            <div class="image-box">
+              <img
+                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxivAs4UknzmDfLBXGMxQkayiZDhR2ftB4jcIV7LEnIEStiUyMygioZnbLXCAND-I_xWQpVp0jv-dv9NVNbuKn4sNpXYtLIJk2-IOdWQNpC2Ldapnljifu0pnQqAWU848Ja4lT9ugQex-nwECEh3a96GXwiRXlnGEE6FFF_tKm66IGe3fzmLaVIoNL/s1600/img_avatar.png"
+                alt="avatar">
+            </div>
+            <p class="username">D Poojitha</p>
+          </div>
+          <div class="menu-toggle"></div>
+          <ul class="menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Notification</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Header End -->
+
+  <!-- Breadcrumb Strat -->
+
+
+  <div class="container py-2">
+    <div class="d-flex align-items-center justify-content-between mb-1 p-2">
+
+      <!-- Back Icon -->
+      <i class="fa fa-arrow-left" style="cursor: pointer;"  (click)="navigateHome()"></i>
+
+      <!-- Title and Button Container -->
+      <div class="d-flex justify-content-center align-items-center flex-grow-1 position-relative">
+        <h1 class="m-0 text-center" style="font-size: 20px;">Youtude Courses</h1>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="p-3">
+    <div class="col-md-12" *ngIf="lstyoutubelinks.length>0">
+       <div class="card card-custom bg-white border-white border-0" *ngFor="let link of lstyoutubelinks">
+          <!-- <div class="card-custom-img" style="background-image: url(https://www.rankkeywords.in/wp-content/uploads/2023/06/digital-marketing-search-engine-optimization-marketing-content-thumbnail-1.jpg);"></div>
+          <div class="card-custom-avatar">
+            <img class="img-fluid" src="https://images.vexels.com/media/users/3/137425/isolated/preview/f2ea1ded4d037633f687ee389a571086-youtube-icon-logo.png?w=360" alt="Avatar" />
+          </div> -->
+          <div class="card-body" style="overflow-y: auto">
+            <h4 class="card-title">{{link.title? link.title : ""}}</h4>
+            <a [href]="link.link">{{link.link}}</a>
+           </div>
+         
+        </div>
+      
+    </div>
+    <h4 *ngIf="lstyoutubelinks.length==0" class="text-center">No YouTube Links Are Found!</h4>
+  </div>
+
+  </div>

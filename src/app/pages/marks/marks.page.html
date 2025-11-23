@@ -1,0 +1,158 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>marks</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">marks</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content> -->
+
+<div class="mobileScreen">
+  <!-- Header Start -->
+  <div class="header">
+    <div class="col-md-12">
+      <div class="logo">
+        <img src="../../assets/images/logo.png" style="width:45px;">
+      </div>
+      <div class="loins">
+        <div class="navigation">
+          <div class="user-box">
+            <div class="image-box">
+              <img
+                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxivAs4UknzmDfLBXGMxQkayiZDhR2ftB4jcIV7LEnIEStiUyMygioZnbLXCAND-I_xWQpVp0jv-dv9NVNbuKn4sNpXYtLIJk2-IOdWQNpC2Ldapnljifu0pnQqAWU848Ja4lT9ugQex-nwECEh3a96GXwiRXlnGEE6FFF_tKm66IGe3fzmLaVIoNL/s1600/img_avatar.png"
+                alt="avatar">
+            </div>
+            <p class="username">D Poojitha</p>
+          </div>
+          <div class="menu-toggle"></div>
+          <ul class="menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Notification</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Header End -->
+
+  <!-- Breadcrumb Strat -->
+
+
+  <div class="container py-2">
+    <div class="d-flex align-items-center justify-content-between mb-1 p-2">
+
+      <!-- Back Icon -->
+      <i class="fa fa-arrow-left" style="cursor: pointer;" (click)="navigateHome()"></i>
+
+      <!-- Title and Button Container -->
+      <div class="d-flex justify-content-center align-items-center flex-grow-1 position-relative">
+        <h1 class="m-0 text-center" style="font-size: 20px;">Marks</h1>
+      </div>
+
+    </div>
+  </div>
+  <!-- Breadcrumb End -->
+<div class="p-3">
+
+  <!-- Exam Schedule Start -->
+
+ <div class="tab-pane" *ngIf="!isResult">
+              <div class="col-md-12">
+              <div class="about-one__content-text2-single" (click)="gotoResult(exam)" *ngFor="let exam of marks">
+                
+                <p>{{ exam.examName }}</p>
+                <div class="about-one__content-text2-single-top">
+                  <div class="about-one__content-text2-single-top">
+                    <div class="icon">
+                      <i class="fa fa-book" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="title-box">
+                        <h3>Total Marks : {{ getTotalMarks(exam.subjects) }}</h3>
+                    </div>
+                </div>
+                <div class="about-one__content-text2-single-top">
+                  <div class="icon">
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                  </div>
+
+                  <div class="title-box">
+                      <h3>Pass Marks : 25</h3>
+                  </div>
+              </div>
+                  
+                
+                </div>
+                <div class="about-one__content-text2-single-top">
+                  
+                
+                  <div class="about-one__content-text2-single-top">
+                    <div class="icon">
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="title-box">
+                        <h3>22 May, 2025</h3>
+                    </div>
+                </div>
+                <div class="about-one__content-text2-single-top">
+                  <div class="icon">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                  </div>
+
+                  <div class="title-box">
+                      <h3>10am to 1pm</h3>
+                  </div>
+              </div>
+
+                </div>
+                
+
+              </div>
+            </div>
+            </div>
+
+
+
+   <section class="cards-wrapper flex flex-center" *ngIf="isResult">
+      <article class="result-card card flex flex-col">
+        <h1 class="section-title font-medium">Your Result</h1>
+        <div class="result flex flex-center flex-col">
+          <div class="score flex flex-center flex-col">
+            <span class="font-bold">{{totalMarks}} </span>
+            <p>of {{ maxMarks }}</p>
+          </div>
+          <div class="feedback flex flex-center flex-col">
+            <span class="font-medium">{{ feedback }}</span>
+            <p>You scored {{ percentage | number:'1.0-2' }}%.of the people who have taken these
+              tests.</p>
+          </div>
+        </div>
+      </article>
+      <article class="summary-card card flex flex-col">
+        <!-- <h2 class="font-medium mb-3">Marks Card</h2> -->
+        <div class="break-down flex flex-col gap-2" *ngFor="let subject of subjects" style="margin-bottom: 5px;">
+          <div class="tile reaction flex">
+            <div class="source flex gap-1">
+              <i class="fa fa-book" aria-hidden="true"></i>
+              <p>{{ subject.name }}</p>
+            </div>
+            <div class="font-medium">
+              <span>{{ subject.marks }}</span><span class="dim"> / {{subject.totalmarks}}</span>
+            </div>
+          </div>
+         
+        </div>
+
+      </article>
+    </section>
+    </div>
+</div>
